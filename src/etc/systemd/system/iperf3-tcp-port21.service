@@ -1,0 +1,12 @@
+[Unit]
+Description=iperf server
+After=syslog.target network.target auditd.service
+
+[Service]
+Restart=always
+RestartSec=30s
+
+ExecStart=/usr/bin/iperf3 -s -p 21
+
+[Install]
+WantedBy=multi-user.target

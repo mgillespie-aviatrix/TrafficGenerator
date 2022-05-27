@@ -1,0 +1,12 @@
+[Unit]
+Description=client traffic generator service
+After=syslog.target network.target auditd.service
+
+[Service]
+Restart=always
+RestartSec=1800s
+
+ExecStart=/usr/local/bin/client_traffic.sh
+
+[Install]
+WantedBy=multi-user.target

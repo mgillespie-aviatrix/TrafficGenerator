@@ -10,16 +10,18 @@ This is not a replacement for more robust solutions like T-REX, but does cause r
 ## Installation
 Installation can be done by simply installing the RPM package from the RPMs folder. Both binary and source RPMs are GPG signed. The RPMs only distribute the systemd and bash scripts, you may need to also install iperf3.
 
-#Install pre-requisites
+DPKG packages for Debian based systems may be provided at a later date (but are currently not available)
+
+**#Install pre-requisites**
 yum install iperf3
 
-#Download and install RPM.
+**#Download and install RPM.**
 wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.1-1.amzn2.noarch.rpm
 sudo rpm -i trafficgenerator-0.0.1-1.amzn2.noarch.rpm 
 
-#Add the list of servers you're installing the traffic generator/receiver on, 1 per line with no comments or whitespace and save the file.
+**#Add the list of servers you're installing the traffic generator/receiver on, 1 per line with no comments or whitespace and save the file.**
 sudo vim /usr/local/etc/client_traffic_generator.servers
 
-#Lastly, start the client service to generate traffic
+**#Lastly, start the client service to generate traffic**
 sudo systemctl start client_traffic_generator
 

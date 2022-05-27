@@ -16,12 +16,15 @@ DPKG packages for Debian based systems may be provided at a later date (but are 
 yum install iperf3
 
 **#Download and install RPM.**
+
 wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.1-1.amzn2.noarch.rpm
 sudo rpm -i trafficgenerator-0.0.1-1.amzn2.noarch.rpm 
 
 **#Add the list of servers you're installing the traffic generator/receiver on, 1 per line with no comments or whitespace and save the file.**
+
 sudo vim /usr/local/etc/client_traffic_generator.servers
 
 **#Lastly, start the client service to generate traffic**
+
 sudo systemctl start client_traffic_generator
 

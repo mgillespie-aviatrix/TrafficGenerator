@@ -1,6 +1,7 @@
-resource "aws_security_group" "mysg-default" {
-    name = "mysg-default"
-    vpc_id = var.vpc_id
+resource "aws_security_group" "traffic-flower-default" {
+    name = "traffic-flower-default"
+    count = length(var.vpc_ids)
+    vpc_id = var.vpc_ids[count.index]
 
     egress {
         from_port = 0
@@ -71,19 +72,21 @@ resource "aws_security_group" "mysg-default" {
 }
 
 resource "aws_network_interface" "test-flower" {
-    count = var.instance_count
-    subnet_id = var.subnet_id
+    count = length(var.subnet_ids)
+    subnet_id = var.subnet_ids[count.index]
     tags = { Name = "test-flower${count.index}-eni"}
-    security_groups = [aws_security_group.mysg-default.id]
+    #@todo: This is not going to match up correctly.... fix this. 
+    # For current purposes I have a single VPC, this needs to be revised...
+    security_groups = [aws_security_group.traffic-flower-default[0].id]
 }
 
 output "eni-private-ips" {
   value = aws_network_interface.test-flower.*.private_ip
-  description = "Test Descriptio"
+  description = "Test Description"
 }
 
 resource "aws_instance" "traffic-flower"{
-    count = var.instance_count
+    count = length(var.subnet_ids)
     ami = var.ami_id
     instance_type = var.instance_type
     key_name = var.default_ssh_key
@@ -100,7 +103,7 @@ resource "aws_instance" "traffic-flower"{
      depends_on = [
        aws_network_interface.test-flower
      ]
-     
+
     user_data = <<EOT
       #!/bin/bash -xe
       cd /tmp/
@@ -110,7 +113,8 @@ resource "aws_instance" "traffic-flower"{
       %{ for ip in aws_network_interface.test-flower.*.private_ip ~}
       echo ${ip} | sudo tee -a /usr/local/etc/client_traffic_generator.servers
       %{ endfor }
-      sudo systemctl start client_traffic_generator
+      sudo systemctl ${var.client_service_default} client_traffic_generator
+      sudo systemctl ${var.client_service_action} client_traffic_generator
       EOT
 
 }

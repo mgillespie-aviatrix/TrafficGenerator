@@ -8,12 +8,65 @@ resource "aws_security_group" "mysg-default" {
         protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
     }
-    
     ingress {
         from_port = 22
         to_port = 22
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]   
+    }
+    ingress {
+        from_port = 21
+        to_port = 21
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 23
+        to_port = 23
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 80
+        to_port = 80
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 143
+        to_port = 143
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 1433
+        to_port = 1433
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 3306
+        to_port = 3306
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 3389
+        to_port = 3389
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
+    }
+    ingress {
+        from_port = 8080
+        to_port = 8080
+        protocol = "tcp"
+        cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]   
     }
 }
 

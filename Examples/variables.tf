@@ -1,7 +1,3 @@
-variable "keypath" {
-    default = "/Users/matthewgillespie/.ssh/AWSVMKey.pem"
-}
-
 variable "default_ssh_key" {
     type = string  
     description = "The default SSH key to use."

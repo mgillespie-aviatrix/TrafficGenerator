@@ -100,9 +100,9 @@ resource "aws_instance" "traffic-flower"{
      depends_on = [
        aws_network_interface.test-flower
      ]
-
-    provisioner "remote-exec" {
-      inline = [<<EOT
+     
+    user_data = <<EOT
+      #!/bin/bash -xe
       cd /tmp/
       wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.1-1.amzn2.noarch.rpm
       sudo yum -y install iperf3
@@ -112,15 +112,5 @@ resource "aws_instance" "traffic-flower"{
       %{ endfor }
       sudo systemctl start client_traffic_generator
       EOT
-      ]
-    }
-
-    connection {
-        type = "ssh"
-        user = "ec2-user"
-        password = ""
-        private_key = file(var.keypath)
-        host = self.public_ip
-    }
 
 }

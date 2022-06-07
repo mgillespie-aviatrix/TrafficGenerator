@@ -15,6 +15,12 @@ then
     exit 1;
 fi;
 
+if [ ! -f $URLFILE ];
+then
+    echo "Url file is not found"
+    exit 1;
+fi;
+
 #Read in the list of iperf servers
 while IFS= read -r line; do
         SERVERLIST+=($line)

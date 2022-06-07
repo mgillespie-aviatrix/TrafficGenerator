@@ -4,8 +4,10 @@
 # @author: Matthew Gillespie
 
 SERVERLIST=()
+URLLIST=()
 NUMBER_OF_THREADS=5
 SERVERFILE="/usr/local/etc/client_traffic_generator.servers"
+URLFILE="/usr/local/etc/client_traffic_generator.urls"
 
 if [ ! -f $SERVERFILE ];
 then
@@ -13,15 +15,28 @@ then
     exit 1;
 fi;
 
+#Read in the list of iperf servers
 while IFS= read -r line; do
         SERVERLIST+=($line)
 done < $SERVERFILE
 
 
-for i in "${SERVERS[@]}"
+for i in "${SERVERLIST[@]}"
 do
    echo $i
 done
+
+#Read in the list of test urls
+while IFS= read -r line; do
+        URLLIST+=($line)
+done < $URLFILE
+
+
+for i in "${URLLIST[@]}"
+do
+   echo $i
+done
+
 
 create_traffic(){
 #Here we select a random server from our list of IPERF3 listeners
@@ -39,9 +54,22 @@ echo "Selecting random port from available IPERF3 listeners -- port $RANDOMPORT"
 /usr/bin/iperf3 -n 1k -c $TEST_SERVER -p $RANDOMPORT >/dev/null &
 }
 
+fetch_urls(){
+    for url in "${URLLIST[@]}"
+    do
+        echo $url
+        curl https://$url
+    done
+}
+
+
+#--- Main ---
 
 #Here we create traffic based on the number of threads specified.
 for i in $( eval echo {0..$NUMBER_OF_THREADS} )
 do
-create_traffic
+#create_traffic
 done
+
+#Lastly, let's fetch from the list of URLs.
+fetch_urls

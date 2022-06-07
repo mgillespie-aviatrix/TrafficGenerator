@@ -75,9 +75,7 @@ resource "aws_network_interface" "test-flower" {
     count = length(var.subnet_ids)
     subnet_id = var.subnet_ids[count.index]
     tags = { Name = "test-flower${count.index}-eni"}
-    #@todo: This is not going to match up correctly.... fix this. 
-    # For current purposes I have a single VPC, this needs to be revised...
-    security_groups = [aws_security_group.traffic-flower-default[0].id]
+    security_groups = [aws_security_group.traffic-flower-default[count.index].id]
 }
 
 output "eni-private-ips" {
@@ -107,9 +105,9 @@ resource "aws_instance" "traffic-flower"{
     user_data = <<EOT
       #!/bin/bash -xe
       cd /tmp/
-      wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.1-1.amzn2.noarch.rpm
+      wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.2-1.amzn2.noarch.rpm
       sudo yum -y install iperf3
-      sudo rpm -i trafficgenerator-0.0.1-1.amzn2.noarch.rpm
+      sudo rpm -i trafficgenerator-0.0.2-1.amzn2.noarch.rpm
       %{ for ip in aws_network_interface.test-flower.*.private_ip ~}
       echo ${ip} | sudo tee -a /usr/local/etc/client_traffic_generator.servers
       %{ endfor }

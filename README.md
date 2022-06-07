@@ -18,9 +18,9 @@ yum install iperf3
 
 **#Download and install RPM.**
 
-wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.1-1.amzn2.noarch.rpm
+wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.2-1.amzn2.noarch.rpm
 
-sudo rpm -i trafficgenerator-0.0.1-1.amzn2.noarch.rpm 
+sudo rpm -i trafficgenerator-0.0.2-1.amzn2.noarch.rpm 
 
 **#Add the list of servers you're installing the traffic generator/receiver on, 1 per line with no comments or whitespace and save the file.**
 

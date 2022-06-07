@@ -58,7 +58,7 @@ fetch_urls(){
     for url in "${URLLIST[@]}"
     do
         echo $url
-        curl https://$url
+        curl -s https://$url -o /dev/null
     done
 }
 
@@ -68,7 +68,7 @@ fetch_urls(){
 #Here we create traffic based on the number of threads specified.
 for i in $( eval echo {0..$NUMBER_OF_THREADS} )
 do
-#create_traffic
+    create_traffic
 done
 
 #Lastly, let's fetch from the list of URLs.

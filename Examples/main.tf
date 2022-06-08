@@ -112,7 +112,7 @@ resource "aws_instance" "traffic-flower"{
       echo ${ip} | sudo tee -a /usr/local/etc/client_traffic_generator.servers
       %{ endfor }
       %{ for url in var.url_list }
-      echo %{url} | sudo tee -a /usr/local/etc/client_traffic_generator.urls
+      echo ${url} | sudo tee -a /usr/local/etc/client_traffic_generator.urls
       sudo systemctl ${var.client_service_default} client_traffic_generator
       sudo systemctl ${var.client_service_action} client_traffic_generator
       EOT

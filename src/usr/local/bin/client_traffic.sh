@@ -64,7 +64,7 @@ fetch_urls(){
     for url in "${URLLIST[@]}"
     do
         echo $url
-        curl -s https://$url -o /dev/null
+        curl --insecure -s https://$url -o /dev/null
     done
 }
 

@@ -37,3 +37,9 @@ variable "client_service_action" {
     default = "start"
 }
 
+variable "url_list" {
+    type = list(string)
+    description = "List of URLs to issue CURL requests against"
+    default = ["www.google.com", "www.aviatrix.com", "www.bitcoin.org", "www.yahoo.com","www.facebook.com"]
+}
+

@@ -6,6 +6,8 @@ A client service (client_traffic_generator) can be turned on/off to generate per
 
 By default, 5 threads are created every 30 minutes - each transferring 1K of data. 
 
+Following the 5 IPERF connections, CURL requests are issued against the list of configured URLs.
+
 This is not a replacement for more robust solutions like T-REX, but does cause randomly generated traffic to flow.
 ## Installation
 Installation can be done by simply installing the RPM package from the RPMs folder. Both binary and source RPMs are GPG signed. The RPMs only distribute the systemd and bash scripts, you may need to also install iperf3.
@@ -18,9 +20,9 @@ yum install iperf3
 
 **#Download and install RPM.**
 
-wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.2-1.amzn2.noarch.rpm
+wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.3-1.amzn2.noarch.rpm
 
-sudo rpm -i trafficgenerator-0.0.2-1.amzn2.noarch.rpm 
+sudo rpm -i trafficgenerator-0.0.3-1.amzn2.noarch.rpm 
 
 **#Add the list of servers you're installing the traffic generator/receiver on, 1 per line with no comments or whitespace and save the file.**
 

@@ -79,3 +79,5 @@ done
 
 #Lastly, let's fetch from the list of URLs.
 fetch_urls
+
+exit 0

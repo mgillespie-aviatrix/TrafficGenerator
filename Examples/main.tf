@@ -63,6 +63,12 @@ resource "aws_security_group" "traffic-flower-default" {
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]
   }
+    ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/8", "192.168.0.0/16", "172.16.0.0/12"]
+  }
   ingress {
     from_port   = 8080
     to_port     = 8080
@@ -105,9 +111,9 @@ resource "aws_instance" "traffic-flower" {
   user_data = <<EOT
       #!/bin/bash -xe
       cd /tmp/
-      wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.3-1.amzn2.noarch.rpm
+      wget https://github.com/mgillespie-aviatrix/TrafficGenerator/raw/main/RPMs/trafficgenerator-0.0.4-1.amzn2.noarch.rpm
       sudo yum -y install iperf3
-      sudo rpm -i trafficgenerator-0.0.3-1.amzn2.noarch.rpm
+      sudo rpm -i trafficgenerator-0.0.4-1.amzn2.noarch.rpm
       %{for ip in aws_network_interface.test-flower.*.private_ip~}
       echo ${ip} | sudo tee -a /usr/local/etc/client_traffic_generator.servers
       %{endfor}
